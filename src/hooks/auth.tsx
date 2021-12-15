@@ -12,7 +12,8 @@ import { FirebaseError } from 'firebase/app';
 
 export const useAuth = ():{
     logIn: () => Promise<void>,
-    logOut: () => Promise<void>
+    logOut: () => Promise<void>,
+    user: User | null,
 } => {
     const [user, setUser] = useState<User | null>(null);
     const firebase = useFirebase();
@@ -64,5 +65,6 @@ export const useAuth = ():{
     return {
         logIn,
         logOut,
+        user,
     }
 }
