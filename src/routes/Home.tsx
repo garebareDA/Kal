@@ -7,7 +7,6 @@ import { Card } from '../components/Card';
 export const Home: React.VFC = () => {
     return (
         <div>
-            <Intro />
             <Card name="garebare" img="" ></Card>
         </div>
     );

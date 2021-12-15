@@ -8,10 +8,10 @@ import { Firestore, getFirestore } from 'firebase/firestore'
 import config from './firebaseConfig.json'
 
 export const useFirebase = (): {
-    app: FirebaseApp|null,
-    analytics: Analytics|null,
-    auth: Auth|null,
-    firestore: Firestore|null
+    app: FirebaseApp,
+    analytics: Analytics,
+    auth: Auth,
+    firestore: Firestore
 }
     | undefined => {
     const [app, setApp] = useState<FirebaseApp | null>(null);
@@ -19,12 +19,25 @@ export const useFirebase = (): {
     const [auth, setAuth] = useState<Auth | null>(null);
     const [firestore, setFirestore] = useState<Firestore | null>(null);
 
-    setApp(initializeApp(config as FirebaseOptions));
+    useEffect(() => {
+        setApp(initializeApp(config as FirebaseOptions));
+    })
+
     useEffect(() => {
         if (!app) return;
         setAnalytics(getAnalytics(app));
         setAuth(getAuth(app));
         setFirestore(getFirestore(app));
     }, [app]);
-    return { app, analytics, auth, firestore };
+
+    if (app && analytics && auth && firestore) {
+        return {
+            app,
+            analytics,
+            auth,
+            firestore
+        }
+    } else {
+        return undefined;
+    }
 }
