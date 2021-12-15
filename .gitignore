@@ -5,3 +5,4 @@ dist-ssr
 *.local
 /batch/config.json
 /batch/batch
+/src/hooks/firebaseConfig.json
