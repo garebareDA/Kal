@@ -31,7 +31,7 @@ export const useAuth = ():{
         if (!user) {
             navigate('/login');
         } else {
-            console.log(user.uid);
+            console.log(user.providerData[0].uid);
         }
     }, [user]);
 
