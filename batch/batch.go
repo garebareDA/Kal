@@ -55,7 +55,7 @@ func batch() error {
 	}
 
  	iter := store.Collection("users").Documents(context.Background())
-	ids := make(map[string]bool)
+	 ids := make(map[string]bool)
 	for {
 		 doc, err := iter.Next()
 		 if err != iterator.Done {
@@ -69,11 +69,15 @@ func batch() error {
 
 	for _, id := range followings {
 		if _, ok := ids[id]; ok {
+			//すでに存在するフォロワー
 			delete(ids, id)
 		} else {
 			//storeに追加するフォロワー
-			delete(ids, id)
 		}
+	}
+	//残ったユーザーをStoreから削除
+	for id := range ids {
+		store.Collection("users").Doc(id).Delete(context.Background())
 	}
 
 	return nil
