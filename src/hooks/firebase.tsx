@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, createContext, useContext, ReactNode } from 'react';
 
 import { Analytics, getAnalytics } from 'firebase/analytics'
 import { initializeApp, FirebaseApp, FirebaseOptions } from 'firebase/app'
@@ -7,6 +7,15 @@ import { Firestore, getFirestore } from 'firebase/firestore'
 
 import config from './firebaseConfig.json'
 
+const FirebaseContext = createContext<FirebaseApp | null> (null)
+
+export const FirebaseProvider:React.VFC<{children:ReactNode}> = ({children}) => {
+    const [app] = useState<FirebaseApp>(() => initializeApp(config))
+    return (
+        <FirebaseContext.Provider value={app}>{children}</FirebaseContext.Provider>
+    )
+}
+
 export const useFirebase = (): {
     app: FirebaseApp,
     analytics: Analytics,
@@ -14,14 +23,10 @@ export const useFirebase = (): {
     firestore: Firestore
 }
     | undefined => {
-    const [app, setApp] = useState<FirebaseApp | null>(null);
+    const app = useContext(FirebaseContext)
     const [analytics, setAnalytics] = useState<Analytics | null>(null);
     const [auth, setAuth] = useState<Auth | null>(null);
     const [firestore, setFirestore] = useState<Firestore | null>(null);
-
-    useEffect(() => {
-        setApp(initializeApp(config as FirebaseOptions));
-    })
 
     useEffect(() => {
         if (!app) return;

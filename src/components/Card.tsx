@@ -1,16 +1,16 @@
 import * as React from 'react';
+import { User} from 'firebase/auth'
 
-type Props = {
-    name: string;
-    img: string
-}
+import { useAuth } from '../hooks/auth';
 
-export const Card : React.VFC<Props> = ({name, img}) => {
+export const Card : React.VFC<{logOut:() => Promise<void>, user:User}> = ({logOut, user}) => {
     return (
         <div>
-            <div>{name}</div>
-            <img src={img} alt= {name}/>
-            <div>ログアウト</div>
+            <div>{user.displayName}</div>
+            <img src={user.photoURL as string} alt= {user.displayName as string}/>
+            <div>
+                <button onClick={() => {logOut()}}>ログアウト</button>
+            </div>
             <div>アカウントの削除</div>
         </div>
     );
