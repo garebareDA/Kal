@@ -69,9 +69,10 @@ func batch() error {
 
 	for _, id := range followings {
 		if _, ok := ids[id]; ok {
-			ids[id] = true
+			delete(ids, id)
 		} else {
 			//storeに追加するフォロワー
+			delete(ids, id)
 		}
 	}
 
