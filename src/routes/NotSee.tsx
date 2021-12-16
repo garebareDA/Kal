@@ -6,7 +6,7 @@ export const NotSee: React.VFC = () => {
         <div>
             <div>フォローされていません！</div>
             <div>寝て待て！</div>
-            <div>もしくはがれバレにDMを送るとフォローされるのかもしれない……</div>
+            <div>もしくはガレバレにDMを送るとフォローされるのかもしれない……</div>
         </div>
     );
 }
