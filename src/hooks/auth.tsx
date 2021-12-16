@@ -1,9 +1,10 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
     User,
     signInWithPopup,
     signOut,
+    deleteUser,
     TwitterAuthProvider
 } from 'firebase/auth'
 
@@ -13,6 +14,7 @@ import { FirebaseError } from 'firebase/app';
 export const useAuth = (): {
     logIn: () => Promise<void>,
     logOut: () => Promise<void>,
+    deleteAccount: () => Promise<void>,
     user: User | null,
 } => {
     const [user, setUser] = useState<User | null>(null);
@@ -20,7 +22,6 @@ export const useAuth = (): {
     const [unmounted, setUnmounted] = useState<boolean>(false);
     const firebase = useFirebase();
     const auth = firebase?.auth || null;
-    const firestore = firebase?.firestore || null;
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -43,7 +44,6 @@ export const useAuth = (): {
             navigate('/');
         }
     }, [init, user]);
-
 
     const logIn = async (): Promise<void> => {
         return new Promise((resolve, reject) => {
@@ -71,9 +71,22 @@ export const useAuth = (): {
         });
     }
 
+    const deleteAccount = async (): Promise<void> => {
+        return new Promise((resolve, reject) => {
+            auth && user &&
+                deleteUser(user).then(() => {
+                    setUser(null);
+                    resolve();
+                }).catch((error: FirebaseError) => {
+                    reject(error);
+                })
+        });
+    }
+
     return {
         logIn,
         logOut,
+        deleteAccount,
         user,
     }
 }

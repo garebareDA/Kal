@@ -1,9 +1,7 @@
 import * as React from 'react';
 import { User} from 'firebase/auth'
 
-import { useAuth } from '../hooks/auth';
-
-export const Card : React.VFC<{logOut:() => Promise<void>, user:User}> = ({logOut, user}) => {
+export const Card : React.VFC<{logOut:() => Promise<void>, deleteAccount:() => Promise<void>, user:User}> = ({logOut, deleteAccount, user}) => {
     return (
         <div>
             <div>{user.displayName}</div>
@@ -11,7 +9,9 @@ export const Card : React.VFC<{logOut:() => Promise<void>, user:User}> = ({logOu
             <div>
                 <button onClick={() => {logOut()}}>ログアウト</button>
             </div>
-            <div>アカウントの削除</div>
+            <div>
+                <button onClick={() => {deleteAccount()}}>アカウント削除</button>
+            </div>
         </div>
     );
 }
