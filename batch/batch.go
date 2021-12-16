@@ -73,6 +73,10 @@ func batch() error {
 			delete(ids, id)
 		} else {
 			//storeに追加するフォロワー
+			_, err := store.Collection("users").Doc(id).Set(context.Background(), nil)
+			if err != nil {
+				return err
+			}
 		}
 	}
 	//残ったユーザーをStoreから削除
