@@ -21,7 +21,7 @@ export const useAuth = (): {
     const [init, setInit] = useState<boolean>(false);
     const [unmounted, setUnmounted] = useState<boolean>(false);
     const firebase = useFirebase();
-    const auth = firebase?.auth || null;
+    const auth = firebase?.auth;
     const navigate = useNavigate();
 
     useEffect(() => {

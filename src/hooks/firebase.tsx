@@ -27,7 +27,6 @@ export const useFirebase = (): {
     const [analytics, setAnalytics] = useState<Analytics | null>(null);
     const [auth, setAuth] = useState<Auth | null>(null);
     const [firestore, setFirestore] = useState<Firestore | null>(null);
-
     useEffect(() => {
         if (!app) return;
         setAnalytics(getAnalytics(app));
