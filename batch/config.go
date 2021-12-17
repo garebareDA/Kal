@@ -18,24 +18,42 @@ type TwitterConfig struct {
 	AccessTokenSecret string `json:"access_token_secret"`
 }
 
-var DefaultConfig *TwitterConfig
+type FirebaseConfig struct {
+	Type                    string `json:"type"`
+	ProjectID               string `json:"project_id"`
+	PrivateKeyID            string `json:"private_key_id"`
+	PrivateKey              string `json:"private_key"`
+	ClientEmail             string `json:"client_email"`
+	ClientID                string `json:"client_id"`
+	AuthURI                 string `json:"auth_uri"`
+	TokenURI                string `json:"token_uri"`
+	AuthProviderX509CertURL string `json:"auth_provider_x509_cert_url"`
+	ClientX509CertURL       string `json:"client_x509_cert_url"`
+}
 
-func NewConfig() (*TwitterConfig, error) {
+type Config struct {
+	Twitter *TwitterConfig
+	Firebase *FirebaseConfig
+}
+
+var DefaultConfig *Config
+
+func NewConfig() (*Config, error) {
 	if len(configBytes) < 1 {
 		return nil, errors.New("config.json is empty")
 	}
-	var t *TwitterConfig
-	err := json.Unmarshal(configBytes, &t)
+	var c *Config
+	err := json.Unmarshal(configBytes, &c)
 	if err != nil {
 		return nil, err
 	}
-	return t, nil
+	return c, nil
 }
 
 func init() {
-	t, err := NewConfig()
+	c, err := NewConfig()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, err.Error())
 	}
-	DefaultConfig = t
+	DefaultConfig = c
 }
