@@ -12,7 +12,7 @@ export const App: React.FC = () => {
 
     useEffect(() => {
         getApiKey().then(setApiKey);
-    }, [apiKey]);
+    });
 
     React.useEffect
     return (
