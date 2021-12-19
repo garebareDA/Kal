@@ -40,8 +40,6 @@ export const useAuth = (): {
     useEffect(() => {
         if (!user && init) {
             navigate('/login');
-        } else if(user && init) {
-            navigate('/');
         }
     }, [init, user]);
 
@@ -52,6 +50,7 @@ export const useAuth = (): {
                     .then((result) => {
                         setUser(result.user);
                         resolve();
+                        navigate('/');
                     })
                     .catch((error: FirebaseError) => {
                         reject(error);

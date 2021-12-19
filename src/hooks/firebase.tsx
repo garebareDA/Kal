@@ -2,15 +2,15 @@ import React, { useState, useEffect, createContext, useContext, ReactNode } from
 
 import { Analytics, getAnalytics } from 'firebase/analytics'
 import { initializeApp, FirebaseApp, FirebaseOptions } from 'firebase/app'
-import { Auth, getAuth } from 'firebase/auth'
-import { Firestore, getFirestore } from 'firebase/firestore'
+import { Auth, getAuth, connectAuthEmulator } from 'firebase/auth'
+import { Firestore, getFirestore, connectFirestoreEmulator } from 'firebase/firestore'
 
 import config from './firebaseConfig.json'
 
-const FirebaseContext = createContext<FirebaseApp | null> (null)
+const FirebaseContext = createContext<FirebaseApp | null>(null)
 
-export const FirebaseProvider:React.VFC<{children:ReactNode}> = ({children}) => {
-    const [app] = useState<FirebaseApp>(() => initializeApp(config))
+export const FirebaseProvider: React.VFC<{ children: ReactNode }> = ({ children }) => {
+    const [app] = useState<FirebaseApp>(() => initializeApp(config as FirebaseOptions))
     return (
         <FirebaseContext.Provider value={app}>{children}</FirebaseContext.Provider>
     )
@@ -26,7 +26,7 @@ export const useFirebase = (): {
     const app = useContext(FirebaseContext)
     const [analytics, setAnalytics] = useState<Analytics | null>(null);
     const [auth, setAuth] = useState<Auth | null>(null);
-    const [firestore, setFirestore] = useState<Firestore | null>(null);
+    const [firestore, setFirestore] = useState<Firestore | null>(null)
     useEffect(() => {
         if (!app) return;
         setAnalytics(getAnalytics(app));

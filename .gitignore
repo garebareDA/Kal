@@ -5,3 +5,6 @@ dist-ssr
 *.local
 /batch/config.json
 /batch/batch
+.firebaserc
+/*.log
+firebase.json

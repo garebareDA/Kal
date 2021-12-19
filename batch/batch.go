@@ -48,7 +48,6 @@ func batch() error {
 	if err != nil {
 		return err
 	}
-
 	store, err := f.Firestore(context.Background())
 	if err != nil {
 		return err
