@@ -10,8 +10,14 @@ export const useApiKey = (): {
 
     const getApiKey = async (): Promise<string | null> => {
         if (!firestore) return null;
-        const docs = await getDoc(doc(firestore, 'microcsm', 'api'));
-        return docs.data()?.key || "";
+        try {
+            const docs = await getDoc(doc(firestore, 'microcsm', 'api'));
+            return docs.data()?.key || "";
+        }
+        catch(error) {
+            console.error(error);
+            return "";
+        }
     }
 
     return {
