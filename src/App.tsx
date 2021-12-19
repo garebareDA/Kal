@@ -7,12 +7,7 @@ import {Login} from './routes/Login';
 import { useApiKey } from './hooks/api';
 
 export const App: React.FC = () => {
-    const {getApiKey} = useApiKey();
-    const [apiKey, setApiKey] = React.useState<string | null>(null);
-
-    useEffect(() => {
-        getApiKey().then(setApiKey);
-    });
+    const [apiKey, setApiKey] = useState<string | null>(null);
 
     React.useEffect
     return (
