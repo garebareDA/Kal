@@ -1,0 +1,72 @@
+import React, { useState, useEffect } from 'react';
+
+export type MicrocmsResponse = {
+    contents: Article[];
+    totalCount: number;
+    offset: number;
+    limit: number;
+}
+
+export type Article = {
+    id: string,
+    createdAt: string,
+    updatedAt: string,
+    publishedAt: string,
+    revisedAt: string,
+    title: string,
+    profile: string,
+    content: string,
+}
+const ENDPOINT = 'https://kal.microcms.io/api/v1/blog';
+
+export const useMicrocms = (): {
+    contents: Article[],
+    article: Article | undefined | null,
+    page: number,
+    setPage: (page: number) => void,
+    getArticle: (key?: string, id?: string) => void,
+    getArticles: (key?: string, page?: number) => void,
+} => {
+    const [contents, setContents] = useState<Article[]>([]);
+    const [article, setArticle] = useState<Article | null>();
+    const [page, setPage] = useState<number>(1);
+
+    const Limit = 100;
+    const getArticles = async (key?: string, page?: number) => {
+        if (!key) throw new Error('key is required');
+        if (!page) throw new Error('page is required');
+        const params = new URLSearchParams({
+            offset: ((page - 1) * Limit).toString(),
+            limit: Limit.toString(),
+        });
+        const res = await fetch(`${ENDPOINT}?${params.toString()}`, {
+            method: 'GET',
+            headers: {
+                'X-MICROCMS-API-KEY': key,
+            },
+        });
+        setContents((await res.json() as MicrocmsResponse).contents as Article[]);
+    }
+
+    const getArticle = async (key?: string, id?: string) => {
+        if (!key) throw new Error('key is required');
+        if (!id) throw new Error('id is required');
+        const res = await fetch(`${ENDPOINT}/${id}`, {
+            method: 'GET',
+            headers: {
+                'X-MICROCMS-API-KEY': key,
+            },
+        });
+        setArticle((await res.json()) as Article);
+    }
+
+    return {
+        contents,
+        article,
+        page,
+        setPage,
+        getArticle,
+        getArticles,
+    }
+}
+

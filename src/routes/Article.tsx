@@ -1,18 +1,32 @@
-import * as React from 'react';
+import React, { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { useAuth } from '../hooks/auth';
 import { useApiKey } from '../hooks/api';
+import { useMicrocms } from '../hooks/microcms';
 
-export const Article: React.FC = () => {
-    const { logOut, deleteAccount, user } = useAuth();
+export const Article: React.VFC = () => {
+    const { id } = useParams();
+    const { user } = useAuth();
     const { apiKey } = useApiKey();
+    const {getArticle, article} = useMicrocms();
+
+    useEffect(() => {
+        if(!user) return;
+        if(!apiKey || apiKey == "") return;
+        getArticle(apiKey, id);
+    } , [apiKey, user]);
 
     return (
         <div>
-            <div>
-                sonic
-            </div>
+            {article &&
+                <div>
+                    <h1>{article.title}</h1>
+                    <div>{article.profile}</div>
+                    <div dangerouslySetInnerHTML={{__html:article.content}}></div>
+                </div>
+            }
         </div>
     );
 };

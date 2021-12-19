@@ -10,7 +10,7 @@ export const App: React.FC = () => {
     return (
         <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/article" element={<Article />} />
+            <Route path="/article/:id" element={<Article />} />
             <Route path="/login" element={<Login />} />
             <Route path="/notsee" element={<NotSee />} />
         </Routes>
