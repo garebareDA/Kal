@@ -11,11 +11,11 @@ import { ArticleList } from '../components/ArticleList';
 
 
 export const Home: React.VFC<{apiKey:string|null}> = ({apiKey}) => {
-        const [page, setPage] = useState<number>(0);
+        const [page, setPage] = useState<number>(1);
         const [isNextPage, setIsNextPage] = useState<boolean>(false);
         const [isPrevPage, setIsPrevPage] = useState<boolean>(false);
         const { logOut, deleteAccount, user } = useAuth();
-        const {contents, getArticles} = useMicrocms();
+        const {response, getArticles} = useMicrocms();
         const [articles, setArticles] = useState<React.ReactNode[]>([]);
 
         useEffect(() => {
@@ -25,22 +25,14 @@ export const Home: React.VFC<{apiKey:string|null}> = ({apiKey}) => {
         } , [apiKey, user, page]);
 
         useEffect(() => {
+            if(!response) return;
             setArticles([]);
-            for(let i = 0; i < contents.length; i++) {
-                const c = contents[i]
+            for(let i = 0; i < response.contents.length; i++) {
+                const c = response.contents[i]
                 setArticles(articles => [...articles, <ArticleList title={c.title} subtitle={c.profile} id={c.id} key={c.id}/>])
             }
-        } , [contents]);
-
-        const pageTransition = (pages:number) => {
-            if(page >= 1 && contents.length == 10 && pages > 0) {
-                setPage(page + pages);
-            }
-
-            if(page <= 1 && pages < 0) {
-                setPage(page + pages);
-            }
-        }
+            
+        } , [response]);
 
         return (
             <div>
@@ -48,8 +40,8 @@ export const Home: React.VFC<{apiKey:string|null}> = ({apiKey}) => {
                 {articles}
                 {user &&
                     <div>
-                        <button onClick={() => {pageTransition(1)}}>次へ</button>
-                        <button onClick={() => {pageTransition(-1)}}>前へ</button>
+                        <button disabled={!isNextPage}>次へ</button>
+                        <button disabled={!isPrevPage} >前へ</button>
                     </div>}
             </div>
         );
