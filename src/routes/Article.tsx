@@ -6,10 +6,9 @@ import { useAuth } from '../hooks/auth';
 import { useApiKey } from '../hooks/api';
 import { useMicrocms } from '../hooks/microcms';
 
-export const Article: React.VFC = () => {
+export const Article: React.VFC<{apiKey:string|null}> = ({apiKey}) => {
     const { id } = useParams();
     const { user } = useAuth();
-    const { apiKey } = useApiKey();
     const {getArticle, article} = useMicrocms();
 
     useEffect(() => {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { useAuth } from '../hooks/auth';
@@ -10,17 +10,19 @@ import { useMicrocms, Article } from '../hooks/microcms';
 import { ArticleList } from '../components/ArticleList';
 
 
-export const Home: React.VFC = () => {
+export const Home: React.VFC<{apiKey:string|null}> = ({apiKey}) => {
+        const [page, setPage] = useState<number>(0);
+        const [isNextPage, setIsNextPage] = useState<boolean>(false);
+        const [isPrevPage, setIsPrevPage] = useState<boolean>(false);
         const { logOut, deleteAccount, user } = useAuth();
-        const { apiKey } = useApiKey();
-        const {contents, getArticles, page, setPage} = useMicrocms();
+        const {contents, getArticles} = useMicrocms();
         const [articles, setArticles] = useState<React.ReactNode[]>([]);
 
         useEffect(() => {
             if(!user) return;
             if(!apiKey || apiKey == "") return;
             getArticles(apiKey, page);
-        } , [apiKey, user]);
+        } , [apiKey, user, page]);
 
         useEffect(() => {
             setArticles([]);
@@ -30,10 +32,25 @@ export const Home: React.VFC = () => {
             }
         } , [contents]);
 
+        const pageTransition = (pages:number) => {
+            if(page >= 1 && contents.length == 10 && pages > 0) {
+                setPage(page + pages);
+            }
+
+            if(page <= 1 && pages < 0) {
+                setPage(page + pages);
+            }
+        }
+
         return (
             <div>
                 {user && <Card logOut={logOut} deleteAccount={deleteAccount} user={user} />}
                 {articles}
+                {user &&
+                    <div>
+                        <button onClick={() => {pageTransition(1)}}>次へ</button>
+                        <button onClick={() => {pageTransition(-1)}}>前へ</button>
+                    </div>}
             </div>
         );
     };

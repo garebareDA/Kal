@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState} from 'react';
 
 export type MicrocmsResponse = {
     contents: Article[];
@@ -22,14 +22,11 @@ const ENDPOINT = 'https://kal.microcms.io/api/v1/blog';
 export const useMicrocms = (): {
     contents: Article[],
     article: Article | undefined | null,
-    page: number,
-    setPage: (page: number) => void,
     getArticle: (key?: string, id?: string) => void,
     getArticles: (key?: string, page?: number) => void,
 } => {
     const [contents, setContents] = useState<Article[]>([]);
     const [article, setArticle] = useState<Article | null>();
-    const [page, setPage] = useState<number>(1);
 
     const Limit = 100;
     const getArticles = async (key?: string, page?: number) => {
@@ -63,8 +60,6 @@ export const useMicrocms = (): {
     return {
         contents,
         article,
-        page,
-        setPage,
         getArticle,
         getArticles,
     }
