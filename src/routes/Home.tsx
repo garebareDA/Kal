@@ -31,7 +31,8 @@ export const Home: React.VFC<{apiKey:string|null}> = ({apiKey}) => {
                 const c = response.contents[i]
                 setArticles(articles => [...articles, <ArticleList title={c.title} subtitle={c.profile} id={c.id} key={c.id}/>])
             }
-            
+            setIsNextPage((response.totalCount % 10) == 0 && response.contents.length == 10);
+            setIsPrevPage(page != 1);
         } , [response]);
 
         return (
@@ -40,8 +41,8 @@ export const Home: React.VFC<{apiKey:string|null}> = ({apiKey}) => {
                 {articles}
                 {user &&
                     <div>
-                        <button disabled={!isNextPage}>次へ</button>
                         <button disabled={!isPrevPage} >前へ</button>
+                        <button disabled={!isNextPage}>次へ</button>
                     </div>}
             </div>
         );
