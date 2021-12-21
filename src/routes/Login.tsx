@@ -9,7 +9,7 @@ export const Login: React.VFC = () => {
     const { logIn, user } = useAuth();
     const navigate = useNavigate();
     useEffect(() => {
-        if (!user) {
+        if (user) {
             navigate('/');
         }
     } , [user]);

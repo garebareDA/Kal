@@ -21,6 +21,7 @@ export const Article: React.VFC<{apiKey:string|null}> = ({apiKey}) => {
         <div>
             {article &&
                 <div>
+                    <div>{article.createdAt.split('T')[0]}</div>
                     <h1>{article.title}</h1>
                     <div>{article.profile}</div>
                     <div dangerouslySetInnerHTML={{__html:article.content}}></div>

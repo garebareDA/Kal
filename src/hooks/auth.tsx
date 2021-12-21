@@ -49,8 +49,8 @@ export const useAuth = (): {
                 signInWithPopup(auth, new TwitterAuthProvider())
                     .then((result) => {
                         setUser(result.user);
-                        resolve();
                         navigate('/');
+                        resolve();
                     })
                     .catch((error: FirebaseError) => {
                         reject(error);
