@@ -4,7 +4,7 @@ export const Intro: React.VFC = () => {
     return (
         <div>
             <div>Kalは<a href="https://twitter.com/garebare521">ガレバレ</a>のブログです。 </div>
-            <div>フォローされてないと見ることさえできません。</div>
+            <div>フォローされてないと見ることはできません。</div>
             <div>フォローされているかを確認するためにログインする必要があります。</div>
         </div>
     );
