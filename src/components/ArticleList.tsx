@@ -5,8 +5,10 @@ import { Link, useNavigate } from 'react-router-dom';
 const Article = styled.p`
     border-radius: 20px;
     padding: 24px;
+    padding-left: 0px;
+    padding-right: 0px;
     width: 100%;
-    max-width: 700px;
+    max-width: 800px;
 `;
 
 const LinkTitle = styled.div`

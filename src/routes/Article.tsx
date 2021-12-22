@@ -9,6 +9,22 @@ import { useMicrocms } from '../hooks/microcms';
 import { ArticleList } from '../components/ArticleList';
 import { Logo } from '../components/Logo';
 
+const Articles = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content:center;
+`
+
+const Contents = styled.div`
+    color: #414141;
+`
+
+const Frame = styled.p`
+    max-width: 800px;
+    width: 100%;
+`
+
 export const Article: React.VFC<{apiKey:string|null}> = ({apiKey}) => {
     const { id } = useParams();
     const { user } = useAuth();
@@ -21,14 +37,14 @@ export const Article: React.VFC<{apiKey:string|null}> = ({apiKey}) => {
     } , [apiKey, user]);
 
     return (
-        <div>
+        <Articles>
             <Logo />
             {article &&
-                <div>
+                <Frame>
                     <ArticleList title={article.title} subtitle={article.profile} id={article.id} key={article.id} createdAt={article.createdAt} isLink={false}></ArticleList>
-                    <div dangerouslySetInnerHTML={{__html:article.content}}></div>
-                </div>
+                    <Contents dangerouslySetInnerHTML={{__html:article.content}}></Contents>
+                </Frame>
             }
-        </div>
+        </Articles>
     );
 };
