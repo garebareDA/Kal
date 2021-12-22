@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import styled, { ThemeProps } from 'styled-components';
-
-import { Theme } from '../style/Theme';
+import styled from 'styled-components';
 
 import { useAuth } from '../hooks/auth';
 import { Card } from '../components/Card';
@@ -79,9 +77,10 @@ export const Home: React.VFC<{ apiKey: string | null, theme:string, toggleTheme:
         <Homes>
             <Logo theme={theme} toggleTheme={toggleTheme}/>
             <Logos/>
-            {articles.length == 0 && <Page>読み込み中...</Page>}
+            {articles.length == 0 && apiKey != "" && <Page>読み込み中...</Page>}
             {articles}
             {user &&
+            apiKey != "" &&
                 <Buttons>
                     <Button disabled={!isPrevPage} onClick={() => { setPage(page - 1) }}>
                         <ButtonText>
