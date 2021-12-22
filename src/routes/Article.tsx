@@ -3,7 +3,6 @@ import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { useAuth } from '../hooks/auth';
-import { useApiKey } from '../hooks/api';
 import { useMicrocms } from '../hooks/microcms';
 
 import { ArticleList } from '../components/ArticleList';
