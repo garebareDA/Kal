@@ -11,6 +11,7 @@ import { Article } from './routes/Article';
 import { ThemeProvider } from 'styled-components';
 import { lightTheme, darkTheme } from './style/Theme';
 import { GlobalStyle } from './style/Global';
+import { NotFound } from './routes/NotFound';
 
 export const App: React.FC = () => {
     const { apiKey } = useApiKey();
@@ -25,6 +26,7 @@ export const App: React.FC = () => {
                     <Route path="/" element={<Home theme={theme} toggleTheme={toggleTheme} apiKey={apiKey} />} />
                     <Route path="/article/:id" element={<Article theme={theme} toggleTheme={toggleTheme} apiKey={apiKey} />} />
                     <Route path="/login" element={<Login theme={theme} toggleTheme={toggleTheme} />} />
+                    <Route path="*" element={<NotFound theme={theme} toggleTheme={toggleTheme}/>}/>
                 </Routes>
             </ThemeProvider>
         </div>

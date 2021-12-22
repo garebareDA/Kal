@@ -16,6 +16,7 @@ export type Article = {
     title: string,
     profile: string,
     content: string,
+    date:string
 }
 const ENDPOINT = 'https://kal.microcms.io/api/v1/blog';
 

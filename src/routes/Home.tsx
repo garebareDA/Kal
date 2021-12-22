@@ -67,7 +67,7 @@ export const Home: React.VFC<{ apiKey: string | null, theme:string, toggleTheme:
         setArticles([]);
         for (let i = 0; i < response.contents.length; i++) {
             const c = response.contents[i]
-            setArticles(articles => [...articles, <ArticleList title={c.title} subtitle={c.profile} id={c.id} key={c.id} createdAt={c.createdAt} isLink={true}/> ])
+            setArticles(articles => [...articles, <ArticleList title={c.title} subtitle={c.profile} id={c.id} key={c.id} createdAt={c.date} isLink={true}/> ])
         }
         setIsNextPage((response.totalCount % 10) == 0 && response.contents.length == 10);
         setIsPrevPage(page != 1);
@@ -78,6 +78,7 @@ export const Home: React.VFC<{ apiKey: string | null, theme:string, toggleTheme:
             <Logo theme={theme} toggleTheme={toggleTheme}/>
             <Logos/>
             {articles.length == 0 && apiKey != "" && <Page>読み込み中...</Page>}
+            {articles.length == 0 && apiKey == "" && <Page>フォローされていません！寝て待て！</Page>}
             {articles}
             {user &&
             apiKey != "" &&
