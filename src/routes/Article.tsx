@@ -16,7 +16,7 @@ const Articles = styled.div`
 `
 
 const Contents = styled.div`
-    color: #414141;
+    color: ${(props) => props.theme.contentsText};
 `
 
 const Frame = styled.p`

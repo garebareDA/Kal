@@ -2,7 +2,7 @@ import * as React from 'react';
 import styled from 'styled-components';
 import { Link, useNavigate } from 'react-router-dom';
 
-const Article = styled.p`
+const Article = styled.div`
     border-radius: 20px;
     padding: 24px;
     padding-left: 0px;
@@ -12,9 +12,9 @@ const Article = styled.p`
 `;
 
 const LinkTitle = styled.div`
+    color: ${(props) => props.theme.titleText};
     font-size: 24px;
     margin-bottom: 16px;
-    color: #3e83d1;
     cursor: pointer;
     :hover {
         color: #043b7a;
@@ -24,16 +24,16 @@ const LinkTitle = styled.div`
 const Title = styled.div`
     font-size: 24px;
     margin-bottom: 16px;
-    color: #3e83d1;
+    color: ${(props) => props.theme.titleText};
 `;
 
 const Shr = styled.hr`
-    background-color: #fff;
-	border-top: 2px dashed #d8d8d8;
+    background-color: #ffffff;
+    border-top: 2px dashed #d8d8d8;
 `
 
 const CreatedAt = styled.div`
-    color: gray;
+    color: ${(props) => props.theme.subText};
 `;
 
 

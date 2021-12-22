@@ -14,6 +14,11 @@ const Logins = styled.div`
     margin-top: 64px;
 `;
 
+const Content = styled.div`
+    margin-top:16px;
+    word-wrap: wrap none;
+`;
+
 export const Login: React.VFC = () => {
     const { logIn, user } = useAuth();
     const navigate = useNavigate();
@@ -24,9 +29,9 @@ export const Login: React.VFC = () => {
     } , [user]);
     return (
         <Logins>
-            <p> <Logo /> </p>
-            <p> <Intro /> </p>
-            <p> <LoginButton logIn={logIn}/> </p>
+            <Content> <Logo /> </Content>
+            <Content> <Intro /> </Content>
+            <Content> <LoginButton logIn={logIn}/> </Content>
         </Logins>
     );
 }

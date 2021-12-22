@@ -2,8 +2,8 @@ import * as React from 'react';
 import styled from 'styled-components';
 import { User } from 'firebase/auth'
 
-const CardFrame = styled.p`
-    box-shadow: 0 4px 8px 0 rgba(0, 6, 0, 0.5);
+const CardFrame = styled.div`
+    box-shadow: 0 4px 8px 0 ${(props) => props.theme.shadow};
     border-radius: 20px;
     padding: 16px;
     max-width: 500px;
@@ -15,6 +15,7 @@ const CardFrame = styled.p`
 const LoginText = styled.div`
     font-size: 16px;
     padding-bottom: 8px;
+    color: ${(props) => props.theme.mainText};
 `
 
 const DisplayIcon = styled.img`
@@ -35,22 +36,25 @@ const Button = styled.button`
     border: none;
     border-radius: 5px;
     margin-bottom: 8px;
-    background-color: #f0f0f0;
+    background-color: ${(props) => props.theme.button};
     cursor: pointer;
     :hover{
         background-color: #ff0000;
-        color: #ffffff;
     }
 `
 
 const ButtonText = styled.div`
     font-size: 16px;
     padding: 8px;
+    color: ${(props) => props.theme.mainText};
+    :hover {
+        color: #ffffff;
+    }
 `;
 
 const TextAnnotation = styled.div`
     font-size: 12px;
-    color: #666666;
+    color: ${(props) => props.theme.subText};
 `
 
 export const Card: React.VFC<{ logOut: () => Promise<void>, deleteAccount: () => Promise<void>, user: User }> = ({ logOut, deleteAccount, user }) => {

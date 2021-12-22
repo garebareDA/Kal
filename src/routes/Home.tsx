@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
+import styled, { ThemeProps } from 'styled-components';
+
+import { Theme } from '../style/Theme';
 
 import { useAuth } from '../hooks/auth';
 import { Card } from '../components/Card';
@@ -24,6 +26,7 @@ const Buttons = styled.div`
 const Page = styled.p`
     margin-left: 24px;
     margin-right: 24px;
+    color:${(props) => props.theme.mainText};
 `;
 
 const Button = styled.button`
@@ -31,6 +34,7 @@ const Button = styled.button`
     border-radius: 10px;
     padding: 16px;
     cursor: pointer;
+    color: ${(props) => props.theme.subText};
     :enabled{
         :hover{
             background-color: #e4e4e4;
@@ -45,8 +49,6 @@ const ButtonText = styled.div`
 const Logos = styled.div`
     margin-bottom: 48px;
 `
-
-const Article = styled.div``
 
 export const Home: React.VFC<{ apiKey: string | null }> = ({ apiKey }) => {
     const [page, setPage] = useState<number>(1);
