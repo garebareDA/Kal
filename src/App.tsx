@@ -6,25 +6,25 @@ import { useTheme } from './hooks/theme';
 
 import { Home } from './routes/Home';
 import { Login } from './routes/Login';
-import { NotSee } from './routes/NotSee';
 import { Article } from './routes/Article';
 
 import { ThemeProvider } from 'styled-components';
-import { lightTheme } from './style/Theme';
+import { lightTheme, darkTheme } from './style/Theme';
+import { GlobalStyle } from './style/Global';
 
 export const App: React.FC = () => {
     const { apiKey } = useApiKey();
     const { theme, toggleTheme } = useTheme();
-    const currentTheme = lightTheme;
+    const currentTheme = theme === 'light' ? lightTheme : darkTheme;
 
     return (
         <div>
             <ThemeProvider theme={currentTheme}>
+                <GlobalStyle />
                 <Routes>
-                    <Route path="/" element={<Home apiKey={apiKey} />} />
-                    <Route path="/article/:id" element={<Article apiKey={apiKey} />} />
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/notsee" element={<NotSee />} />
+                    <Route path="/" element={<Home theme={theme} toggleTheme={toggleTheme} apiKey={apiKey} />} />
+                    <Route path="/article/:id" element={<Article theme={theme} toggleTheme={toggleTheme} apiKey={apiKey} />} />
+                    <Route path="/login" element={<Login theme={theme} toggleTheme={toggleTheme} />} />
                 </Routes>
             </ThemeProvider>
         </div>

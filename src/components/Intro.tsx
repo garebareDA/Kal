@@ -2,7 +2,7 @@ import * as React from 'react';
 import styled from 'styled-components';
 
 const Intros = styled.div`
-    box-shadow: 0 4px 8px 0 ${(props) => props.theme.shadow};
+    box-shadow: 0 2px 8px 0 ${(props) => props.theme.shadow};
     border-radius: 10px;
     padding: 16px;
     max-width: 800px;
@@ -16,7 +16,7 @@ const Text = styled.div`
 
 const Abduction = styled.div`
     padding-top: 16px;
-    color: ${(props) => props.theme.mainText }
+    color: ${(props) => props.theme.mainText };
 `;
 
 export const Intro: React.VFC = () => {
@@ -29,7 +29,6 @@ export const Intro: React.VFC = () => {
                 <div>アカウントのID以外は使用しません。</div>
                 <div>Firebase AuthCationに保存されます。</div>
             </Abduction>
-
         </Intros>
     );
 }

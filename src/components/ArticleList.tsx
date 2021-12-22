@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Article = styled.div`
     border-radius: 20px;
@@ -17,7 +17,7 @@ const LinkTitle = styled.div`
     margin-bottom: 16px;
     cursor: pointer;
     :hover {
-        color: #043b7a;
+        color: ${(props) => props.theme.titleTextHover};
     }
 `;
 
@@ -28,14 +28,17 @@ const Title = styled.div`
 `;
 
 const Shr = styled.hr`
-    background-color: #ffffff;
-    border-top: 2px dashed #d8d8d8;
+    background-color: ${(props) => props.theme.backGround};
+    border-top: 2px dashed ${(props) => props.theme.border};
 `
 
 const CreatedAt = styled.div`
     color: ${(props) => props.theme.subText};
 `;
 
+const Subtitle = styled.div`
+    color: ${(props) => props.theme.mainText};
+`
 
 export const ArticleList: React.VFC<{ title: string, subtitle: string, id: string, createdAt: string, isLink:boolean }> = ({ title, subtitle, id, createdAt, isLink }) => {
     const navigate = useNavigate();
@@ -44,7 +47,7 @@ export const ArticleList: React.VFC<{ title: string, subtitle: string, id: strin
             <CreatedAt>{createdAt.split('T')[0]}</CreatedAt>
             {isLink && <LinkTitle onClick={() => {navigate(`/article/${id}`);}}>{title}</LinkTitle>}
             {!isLink && <Title>{title}</Title>}
-            <div>{subtitle}</div>
+            <Subtitle>{subtitle}</Subtitle>
             <Shr />
         </Article>
     );

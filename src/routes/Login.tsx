@@ -15,11 +15,11 @@ const Logins = styled.div`
 `;
 
 const Content = styled.div`
-    margin-top:16px;
+    margin-top:24px;
     word-wrap: wrap none;
 `;
 
-export const Login: React.VFC = () => {
+export const Login: React.VFC<{theme:string, toggleTheme:() => void}> = ({theme, toggleTheme}) => {
     const { logIn, user } = useAuth();
     const navigate = useNavigate();
     useEffect(() => {
@@ -29,7 +29,7 @@ export const Login: React.VFC = () => {
     } , [user]);
     return (
         <Logins>
-            <Content> <Logo /> </Content>
+            <Content> <Logo theme={theme} toggleTheme={toggleTheme}/> </Content>
             <Content> <Intro /> </Content>
             <Content> <LoginButton logIn={logIn}/> </Content>
         </Logins>

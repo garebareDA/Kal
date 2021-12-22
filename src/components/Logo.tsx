@@ -1,5 +1,6 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
+import { useLocation } from "react-router-dom";
 
 import kalIcon from "../../img/kal.png";
 
@@ -8,10 +9,9 @@ const Logos = styled.div`
     width: 100%;
     max-width: 800px;
 `
-
 const Container = styled.div`
     font-size: 32px;
-    color: #000000;
+    color: ${(props) => props.theme.mainText};
 `;
 
 const typing = keyframes`
@@ -40,10 +40,23 @@ const IconImage = styled.a`
 
 const Name = styled.div`
     padding-left: 24px;
-    color: #a5a5a5;
+    color: ${(props) => props.theme.subText};
 `
 
-export const Logo: React.VFC = () => {
+const Button = styled.button`
+    margin-left: auto;
+    height: 56px;
+    width: 56px;
+    font-size: 24px;
+    border-radius: 50%;
+    border: none;
+    :hover {
+        background-color: gray;
+    }
+`
+
+export const Logo: React.VFC <{theme:string, toggleTheme:() => void}>= ({theme, toggleTheme}) => {
+    const location = useLocation();
     return (
         <Logos>
             <IconImage />
@@ -51,6 +64,9 @@ export const Logo: React.VFC = () => {
                 <Container>Kal,</Container>
                 <Me>It{"\'"}s me! Garebare</Me>
             </Name>
+            {
+                location.pathname !== "/login" && (theme == "light" ? <Button onClick={() => toggleTheme()}>🌕</Button> : <Button onClick={() => toggleTheme()}>🌑</Button>)
+            }
         </Logos>
     );
 };

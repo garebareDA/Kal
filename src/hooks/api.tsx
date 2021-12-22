@@ -32,9 +32,7 @@ export const useApiKey = (): {
         if (!user) return;
         if (apiKey != "" && apiKey != null) return;
         getApiKey().then((key) => {
-            if(key == "") navigate('/notsee');
             setApiKey(key);
-            console.log(key);
         })
     } , [user]);
 

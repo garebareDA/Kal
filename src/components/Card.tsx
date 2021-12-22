@@ -3,9 +3,10 @@ import styled from 'styled-components';
 import { User } from 'firebase/auth'
 
 const CardFrame = styled.div`
-    box-shadow: 0 4px 8px 0 ${(props) => props.theme.shadow};
+    box-shadow: 0 2px 8px 0 ${(props) => props.theme.shadow};
     border-radius: 20px;
     padding: 16px;
+    padding-right: 0px;
     max-width: 500px;
     display:flex;
     flex-flow: column;
@@ -29,6 +30,7 @@ const Users = styled.div`
 `;
 
 const DisplayName = styled.p`
+    color: ${(props) => props.theme.mainText};
     padding-left: 8px;
 `;
 

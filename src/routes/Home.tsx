@@ -50,7 +50,7 @@ const Logos = styled.div`
     margin-bottom: 48px;
 `
 
-export const Home: React.VFC<{ apiKey: string | null }> = ({ apiKey }) => {
+export const Home: React.VFC<{ apiKey: string | null, theme:string, toggleTheme:() => void }> = ({ apiKey, theme, toggleTheme }) => {
     const [page, setPage] = useState<number>(1);
     const [isNextPage, setIsNextPage] = useState<boolean>(false);
     const [isPrevPage, setIsPrevPage] = useState<boolean>(false);
@@ -77,7 +77,7 @@ export const Home: React.VFC<{ apiKey: string | null }> = ({ apiKey }) => {
 
     return (
         <Homes>
-            <Logo/>
+            <Logo theme={theme} toggleTheme={toggleTheme}/>
             <Logos/>
             {articles.length == 0 && <Page>読み込み中...</Page>}
             {articles}

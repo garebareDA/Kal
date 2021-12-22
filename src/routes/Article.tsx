@@ -24,7 +24,7 @@ const Frame = styled.p`
     width: 100%;
 `
 
-export const Article: React.VFC<{apiKey:string|null}> = ({apiKey}) => {
+export const Article: React.VFC<{apiKey:string|null, theme:string, toggleTheme:() => void}> = ({apiKey, theme, toggleTheme}) => {
     const { id } = useParams();
     const { user } = useAuth();
     const {getArticle, article} = useMicrocms();
@@ -37,7 +37,7 @@ export const Article: React.VFC<{apiKey:string|null}> = ({apiKey}) => {
 
     return (
         <Articles>
-            <Logo />
+            <Logo theme={theme} toggleTheme={toggleTheme}/>
             {article &&
                 <Frame>
                     <ArticleList title={article.title} subtitle={article.profile} id={article.id} key={article.id} createdAt={article.createdAt} isLink={false}></ArticleList>
