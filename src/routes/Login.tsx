@@ -14,8 +14,6 @@ const Logins = styled.div`
     margin-top: 64px;
 `;
 
-
-
 export const Login: React.VFC = () => {
     const { logIn, user } = useAuth();
     const navigate = useNavigate();
