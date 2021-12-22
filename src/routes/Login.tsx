@@ -4,6 +4,17 @@ import styled from 'styled-components';
 
 import { useAuth } from '../hooks/auth';
 import { Intro } from '../components/Intro';
+import { Logo } from '../components/Logo';
+import { LoginButton } from '../components/LoginButton';
+
+const Logins = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 64px;
+`;
+
+
 
 export const Login: React.VFC = () => {
     const { logIn, user } = useAuth();
@@ -14,9 +25,10 @@ export const Login: React.VFC = () => {
         }
     } , [user]);
     return (
-        <div>
-            <Intro />
-            <button onClick={ () => { logIn() }}> login </button>
-        </div>
+        <Logins>
+            <p> <Logo /> </p>
+            <p> <Intro /> </p>
+            <p> <LoginButton logIn={logIn}/> </p>
+        </Logins>
     );
 }

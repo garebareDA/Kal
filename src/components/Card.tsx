@@ -2,7 +2,7 @@ import * as React from 'react';
 import styled from 'styled-components';
 import { User } from 'firebase/auth'
 
-const CardFrame = styled.div`
+const CardFrame = styled.p`
     box-shadow: 0 4px 8px 0 rgba(0, 6, 0, 0.5);
     border-radius: 20px;
     padding: 16px;

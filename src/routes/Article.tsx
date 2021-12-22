@@ -6,6 +6,9 @@ import { useAuth } from '../hooks/auth';
 import { useApiKey } from '../hooks/api';
 import { useMicrocms } from '../hooks/microcms';
 
+import { ArticleList } from '../components/ArticleList';
+import { Logo } from '../components/Logo';
+
 export const Article: React.VFC<{apiKey:string|null}> = ({apiKey}) => {
     const { id } = useParams();
     const { user } = useAuth();
@@ -19,11 +22,10 @@ export const Article: React.VFC<{apiKey:string|null}> = ({apiKey}) => {
 
     return (
         <div>
+            <Logo />
             {article &&
                 <div>
-                    <div>{article.createdAt.split('T')[0]}</div>
-                    <h1>{article.title}</h1>
-                    <div>{article.profile}</div>
+                    <ArticleList title={article.title} subtitle={article.profile} id={article.id} key={article.id} createdAt={article.createdAt} isLink={false}></ArticleList>
                     <div dangerouslySetInnerHTML={{__html:article.content}}></div>
                 </div>
             }

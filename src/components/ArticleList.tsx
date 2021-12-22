@@ -9,7 +9,7 @@ const Article = styled.p`
     max-width: 700px;
 `;
 
-const Title = styled.div`
+const LinkTitle = styled.div`
     font-size: 24px;
     margin-bottom: 16px;
     color: #3e83d1;
@@ -17,6 +17,12 @@ const Title = styled.div`
     :hover {
         color: #043b7a;
     }
+`;
+
+const Title = styled.div`
+    font-size: 24px;
+    margin-bottom: 16px;
+    color: #3e83d1;
 `;
 
 const Shr = styled.hr`
@@ -29,14 +35,13 @@ const CreatedAt = styled.div`
 `;
 
 
-export const ArticleList: React.VFC<{ title: string, subtitle: string, id: string, createdAt: string }> = ({ title, subtitle, id, createdAt }) => {
+export const ArticleList: React.VFC<{ title: string, subtitle: string, id: string, createdAt: string, isLink:boolean }> = ({ title, subtitle, id, createdAt, isLink }) => {
     const navigate = useNavigate();
     return (
         <Article>
-            <CreatedAt>{createdAt}</CreatedAt>
-            <Title onClick={() => {
-                navigate(`/article/${id}`);
-            }}>{title}</Title>
+            <CreatedAt>{createdAt.split('T')[0]}</CreatedAt>
+            {isLink && <LinkTitle onClick={() => {navigate(`/article/${id}`);}}>{title}</LinkTitle>}
+            {!isLink && <Title>{title}</Title>}
             <div>{subtitle}</div>
             <Shr />
         </Article>

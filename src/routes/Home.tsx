@@ -67,7 +67,7 @@ export const Home: React.VFC<{ apiKey: string | null }> = ({ apiKey }) => {
         setArticles([]);
         for (let i = 0; i < response.contents.length; i++) {
             const c = response.contents[i]
-            setArticles(articles => [...articles, <ArticleList title={c.title} subtitle={c.profile} id={c.id} key={c.id} createdAt={c.createdAt.split("T")[0]} /> ])
+            setArticles(articles => [...articles, <ArticleList title={c.title} subtitle={c.profile} id={c.id} key={c.id} createdAt={c.createdAt} isLink={true}/> ])
         }
         setIsNextPage((response.totalCount % 10) == 0 && response.contents.length == 10);
         setIsPrevPage(page != 1);
