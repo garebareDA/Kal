@@ -31,12 +31,12 @@ jobs:
         with:
           go-version: 1.17
         id: go
-        
+
       - name: Put Config
-        env:
-          SECRET: ${{ secrets.CONFIG_JOSN }}
         run: |
-          echo $SECRET > config.json
+          cat - << EOS > config.json
+          ${{ secrets.CONFIG_JOSN }}
+          EOS
 
       - name: Resolve deps
         run: |
