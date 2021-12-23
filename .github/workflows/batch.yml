@@ -37,6 +37,8 @@ jobs:
           cat - << EOS > config.json
           ${{ secrets.CONFIG_JOSN }}
           EOS
+        run:|
+          ls
 
       - name: Resolve deps
         run: |
