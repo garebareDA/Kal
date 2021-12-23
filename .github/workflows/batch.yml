@@ -1,0 +1,45 @@
+name: batch
+on:
+  push:
+    branches: 
+      - main
+    paths:
+      -".github/workflows/run-batch.yml" 
+      -"batch/**"
+  schedule:
+      - cron: "0 0 * * *"
+
+jobs:
+  test:
+    name: run-batch
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./batch
+      
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Go1.17
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.17
+        id: go
+        
+      - name: Put Config
+        run: |
+          cat - << EOS > config.json
+          ${{ secrets.CONFIG_JSON }}
+          EOS
+        
+      - name: Resolve deps
+        run: |
+          go get ./...
+      
+      - name: Build
+        run: |
+          go build -o batch .
+        
+      - name : Run
+        run: |
+          ./batch
