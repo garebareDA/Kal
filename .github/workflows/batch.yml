@@ -33,11 +33,11 @@ jobs:
         id: go
         
       - name: Put Config
+        env:
+          SECRET: ${{ secrets.CONFIG_JOSN }}
         run: |
-          cat - << EOS > config.json
-          ${{ secrets.CONFIG_JOSN }}
-          EOS
-        
+          echo $SECRET > config.json
+
       - name: Resolve deps
         run: |
           go get ./...
