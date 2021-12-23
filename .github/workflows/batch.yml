@@ -1,10 +1,16 @@
 name: batch
 on:
-  push:
-    branches: 
+  workflow_dispatch:
+    branches:
       - main
     paths:
-      -".github/workflows/run-batch.yml" 
+      -".github/workflows/run-batch.yml"
+      -"batch/**"
+  push:
+    branches:
+      - main
+    paths:
+      -".github/workflows/run-batch.yml"
       -"batch/**"
   schedule:
       - cron: "0 0 * * *"
