@@ -38,18 +38,14 @@ export const Article: React.VFC<{apiKey:string|null, theme:string, toggleTheme:(
 
     useEffect(() => {
         if(!user) return;
-        if(!apiKey || apiKey == "") {
-            navigate('/');
-            return;
-        }
-
+        if(!apiKey || apiKey == "") return;
         getArticle(apiKey, id);
     } , [apiKey, user]);
 
     return (
         <Articles>
             <Logo theme={theme} toggleTheme={toggleTheme}/>
-            {!article && apiKey && <Page>読込中……</Page>}
+            {!article && apiKey && <Page>何もないかもしれない</Page>}
             {article &&
                 <Frame>
                     <ArticleList title={article.title} subtitle={article.profile} id={article.id} key={article.id} createdAt={article.date} isLink={false}></ArticleList>
