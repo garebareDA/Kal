@@ -52,7 +52,7 @@ type Props = {
     apiKey: string|null
 }
 
-export const Home: React.VFC<Props> = ({ apiKey, theme, toggleTheme }) => {
+export const Home: React.VFC<Props> = ({ apiKey } : Props) => {
     const [page, setPage] = useState<number>(1);
     const [isNextPage, setIsNextPage] = useState<boolean>(false);
     const [isPrevPage, setIsPrevPage] = useState<boolean>(false);
@@ -70,8 +70,8 @@ export const Home: React.VFC<Props> = ({ apiKey, theme, toggleTheme }) => {
         if (!response) return;
         setArticles([]);
         for (let i = 0; i < response.contents.length; i++) {
-            const c = response.contents[i]
-            setArticles(articles => [...articles, <ArticleList title={c.title} subtitle={c.profile} id={c.id} key={c.id} createdAt={c.date} isLink={true}/> ])
+            const c = response.contents[i];
+            setArticles(articles => [...articles, <ArticleList title={c.title} subtitle={c.profile} id={c.id} key={c.id} createdAt={c.date} isLink={true}/> ]);
         }
         setIsNextPage((response.totalCount % 10) == 0 && response.contents.length == 10);
         setIsPrevPage(page != 1);
@@ -79,7 +79,7 @@ export const Home: React.VFC<Props> = ({ apiKey, theme, toggleTheme }) => {
 
     return (
         <Homes>
-            <Logo theme={theme} toggleTheme={toggleTheme}/>
+            <Logo/>
             <Logos/>
             {articles.length == 0 && apiKey != "" && <Page>読み込み中...</Page>}
             {articles.length == 0 && apiKey == "" && <Page>フォローされていません！寝て待て！</Page>}
@@ -87,13 +87,13 @@ export const Home: React.VFC<Props> = ({ apiKey, theme, toggleTheme }) => {
             {user &&
             apiKey != "" &&
                 <Buttons>
-                    <Button disabled={!isPrevPage} onClick={() => { setPage(page - 1) }}>
+                    <Button disabled={!isPrevPage} onClick={() => { setPage(page - 1); }}>
                         <ButtonText>
                             {'<'}
                         </ButtonText>
                     </Button>
                     <Page>{page}</Page>
-                    <Button disabled={!isNextPage} onClick={() => { setPage(page + 1) }}>
+                    <Button disabled={!isNextPage} onClick={() => { setPage(page + 1); }}>
                         <ButtonText>
                             {'>'}
                         </ButtonText>
