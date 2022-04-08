@@ -1,8 +1,7 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
-import { useLocation } from "react-router-dom";
 
-import kalIcon from "../../img/kal.png";
+import kalIcon from "~/assets/image/kal.png";
 
 const Logos = styled.div`
     display: flex;
@@ -41,18 +40,6 @@ const IconImage = styled.a`
 const Name = styled.div`
     padding-left: 24px;
     color: ${(props) => props.theme.subText};
-`;
-
-const Button = styled.button`
-    margin-left: auto;
-    height: 56px;
-    width: 56px;
-    font-size: 24px;
-    border-radius: 50%;
-    border: none;
-    :hover {
-        background-color: gray;
-    }
 `;
 
 export const Logo: React.VFC = () => {

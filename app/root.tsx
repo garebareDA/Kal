@@ -7,16 +7,11 @@ import {
   Scripts,
   ScrollRestoration,
 } from "remix";
-import type { MetaFunction, LinksFunction } from "remix";
+import type { MetaFunction } from "remix";
 import { NextUIProvider } from "@nextui-org/react";
-import icon from "./assets/image/icon.png";
 
 export const meta: MetaFunction = () => {
-  return { title: "DotToys" };
-};
-
-export const links: LinksFunction = () => {
-  return [{ rel: "shortcut icon", href: icon }];
+  return { title: "Kal" };
 };
 
 export default function App():React.ReactElement {
