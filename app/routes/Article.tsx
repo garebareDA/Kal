@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { useAuth } from '../hooks/auth';
@@ -13,16 +13,16 @@ const Articles = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content:center;
-`
+`;
 
 const Contents = styled.div`
     color: ${(props) => props.theme.contentsText};
-`
+`;
 
 const Frame = styled.div`
     max-width: 800px;
     width: 100%;
-`
+`;
 
 const Page = styled.div`
     margin-left: 24px;
@@ -30,11 +30,14 @@ const Page = styled.div`
     color:${(props) => props.theme.mainText};
 `;
 
-export const Article: React.VFC<{apiKey:string|null, theme:string, toggleTheme:() => void}> = ({apiKey, theme, toggleTheme}) => {
+type Props = {
+    apiKey: string|null
+};
+
+export const Article: React.VFC<Props> = ({apiKey}:Props) => {
     const { id } = useParams();
     const { user } = useAuth();
     const {getArticle, article} = useMicrocms();
-    const navigate = useNavigate();
 
     useEffect(() => {
         if(!user) return;
@@ -44,7 +47,7 @@ export const Article: React.VFC<{apiKey:string|null, theme:string, toggleTheme:(
 
     return (
         <Articles>
-            <Logo theme={theme} toggleTheme={toggleTheme}/>
+            <Logo/>
             {!article && apiKey && <Page>何もないかもしれない</Page>}
             {article &&
                 <Frame>

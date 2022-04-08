@@ -14,12 +14,16 @@ const Button = styled.button`
     }
 `;
 
-export const LoginButton:React.VFC<{logIn: () => Promise<void>}> = ({logIn}) => {
+type Props = {
+    logIn: () => Promise<void>
+}
+
+export const LoginButton:React.VFC<Props> = ({logIn}:Props) => {
     return (
         <div>
-            <Button onClick={() => { logIn() }}>
+            <Button onClick={() => { logIn(); }}>
                     Twitterでログイン
             </Button>
         </div>
     );
-}
+};

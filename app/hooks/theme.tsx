@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 export const useTheme = ():{theme:string, toggleTheme:() => void } => {
     const [theme, setTheme] = useState('light');
@@ -20,5 +20,5 @@ export const useTheme = ():{theme:string, toggleTheme:() => void } => {
     return {
         theme,
         toggleTheme
-    }
+    };
 };

@@ -19,7 +19,7 @@ const Content = styled.div`
     word-wrap: wrap none;
 `;
 
-export const Login: React.VFC<{theme:string, toggleTheme:() => void}> = ({theme, toggleTheme}) => {
+export const Login: React.VFC = () => {
     const { logIn, user } = useAuth();
     const navigate = useNavigate();
     useEffect(() => {
@@ -29,9 +29,15 @@ export const Login: React.VFC<{theme:string, toggleTheme:() => void}> = ({theme,
     } , [user]);
     return (
         <Logins>
-            <Content> <Logo theme={theme} toggleTheme={toggleTheme}/> </Content>
-            <Content> <Intro /> </Content>
-            <Content> <LoginButton logIn={logIn}/> </Content>
+            <Content>
+                <Logo/>
+            </Content>
+            <Content>
+                <Intro />
+            </Content>
+            <Content>
+                <LoginButton logIn={logIn}/>
+            </Content>
         </Logins>
     );
-}
+};

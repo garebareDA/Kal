@@ -6,13 +6,13 @@ const Intros = styled.div`
     border-radius: 10px;
     padding: 16px;
     max-width: 800px;
-`
+`;
 
 const Text = styled.div`
     font-size: 24px;
     padding-bottom: 8px;
     color: ${(props) => props.theme.mainText };
-`
+`;
 
 const Abduction = styled.div`
     padding-top: 16px;
@@ -31,4 +31,4 @@ export const Intro: React.VFC = () => {
             </Abduction>
         </Intros>
     );
-}
+};

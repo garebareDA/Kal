@@ -19,7 +19,7 @@ const Homes = styled.div`
 const Buttons = styled.div`
     display: flex;
     margin-bottom: 48px;
-`
+`;
 
 const Page = styled.p`
     margin-left: 24px;
@@ -46,9 +46,13 @@ const ButtonText = styled.div`
 
 const Logos = styled.div`
     margin-bottom: 48px;
-`
+`;
 
-export const Home: React.VFC<{ apiKey: string | null, theme:string, toggleTheme:() => void }> = ({ apiKey, theme, toggleTheme }) => {
+type Props = {
+    apiKey: string|null
+}
+
+export const Home: React.VFC<Props> = ({ apiKey, theme, toggleTheme }) => {
     const [page, setPage] = useState<number>(1);
     const [isNextPage, setIsNextPage] = useState<boolean>(false);
     const [isPrevPage, setIsPrevPage] = useState<boolean>(false);

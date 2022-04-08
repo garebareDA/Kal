@@ -30,7 +30,7 @@ const Title = styled.div`
 const Shr = styled.hr`
     background-color: ${(props) => props.theme.backGround};
     border-top: 2px dashed ${(props) => props.theme.border};
-`
+`;
 
 const CreatedAt = styled.div`
     color: ${(props) => props.theme.subText};
@@ -38,17 +38,25 @@ const CreatedAt = styled.div`
 
 const Subtitle = styled.div`
     color: ${(props) => props.theme.mainText};
-`
+`;
 
-export const ArticleList: React.VFC<{ title: string, subtitle: string, id: string, createdAt: string, isLink:boolean }> = ({ title, subtitle, id, createdAt, isLink }) => {
+type Props = {
+    title: string
+    subtitle: string
+    id: string
+    createdAt: string
+    isLink: boolean
+}
+
+export const ArticleList: React.VFC<Props> = ({ title, subtitle, id, createdAt, isLink }: Props) => {
     const navigate = useNavigate();
     return (
         <Article>
             <CreatedAt>{createdAt.split('T')[0]}</CreatedAt>
-            {isLink && <LinkTitle onClick={() => {navigate(`/article/${id}`);}}>{title}</LinkTitle>}
+            {isLink && <LinkTitle onClick={() => { navigate(`/article/${id}`); }}>{title}</LinkTitle>}
             {!isLink && <Title>{title}</Title>}
             <Subtitle>{subtitle}</Subtitle>
             <Shr />
         </Article>
     );
-}
+};

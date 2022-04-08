@@ -44,7 +44,7 @@ export const useMicrocms = (): {
             },
         });
         setContents((await res.json() as MicrocmsResponse));
-    }
+    };
 
     const getArticle = async (key?: string, id?: string) => {
         if (!key) throw new Error('key is required');
@@ -56,13 +56,12 @@ export const useMicrocms = (): {
             },
         });
         setArticle((await res.json()) as Article);
-    }
+    };
 
     return {
         response,
         article,
         getArticle,
         getArticles,
-    }
-}
-
+    };
+};

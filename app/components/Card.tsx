@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import { User } from 'firebase/auth'
+import { User } from 'firebase/auth';
 
 const CardFrame = styled.div`
     box-shadow: 0 2px 8px 0 ${(props) => props.theme.shadow};
@@ -11,13 +11,13 @@ const CardFrame = styled.div`
     display:flex;
     flex-flow: column;
     width: 100%;
-`
+`;
 
 const LoginText = styled.div`
     font-size: 16px;
     padding-bottom: 8px;
     color: ${(props) => props.theme.mainText};
-`
+`;
 
 const DisplayIcon = styled.img`
     border-radius: 100%;
@@ -43,7 +43,7 @@ const Button = styled.button`
     :hover{
         background-color: #ff0000;
     }
-`
+`;
 
 const ButtonText = styled.div`
     font-size: 16px;
@@ -57,9 +57,16 @@ const ButtonText = styled.div`
 const TextAnnotation = styled.div`
     font-size: 12px;
     color: ${(props) => props.theme.subText};
-`
+`;
 
-export const Card: React.VFC<{ logOut: () => Promise<void>, deleteAccount: () => Promise<void>, user: User }> = ({ logOut, deleteAccount, user }) => {
+
+type Props = {
+    logOut: () => Promise<void>
+    deleteAccount: () => Promise<void>
+    user: User,
+};
+
+export const Card: React.VFC<Props> = ({ logOut, deleteAccount, user }:Props) => {
     return (
         <CardFrame>
             <LoginText>アカウント</LoginText>
@@ -69,12 +76,12 @@ export const Card: React.VFC<{ logOut: () => Promise<void>, deleteAccount: () =>
             </Users>
 
             <div>
-                <Button onClick={() => { logOut() }}>
+                <Button onClick={() => { logOut(); }}>
                     <ButtonText>ログアウト</ButtonText>
                 </Button>
             </div>
             <div>
-                <Button onClick={() => { deleteAccount() }}>
+                <Button onClick={() => { deleteAccount(); }}>
                     <ButtonText>アカウント削除</ButtonText>
                 </Button>
             </div>
@@ -82,4 +89,4 @@ export const Card: React.VFC<{ logOut: () => Promise<void>, deleteAccount: () =>
             <TextAnnotation>ただガレバレの逆鱗に触れると帰ってこれません。</TextAnnotation>
         </CardFrame>
     );
-}
+};

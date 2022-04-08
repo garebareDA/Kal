@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
     User,
@@ -6,7 +6,7 @@ import {
     signOut,
     deleteUser,
     TwitterAuthProvider
-} from 'firebase/auth'
+} from 'firebase/auth';
 
 import { useFirebase } from './firebase';
 import { FirebaseError } from 'firebase/app';
@@ -34,8 +34,8 @@ export const useAuth = (): {
 
         return () => {
             setUnmounted(true);
-        }
-    }, [auth])
+        };
+    }, [auth]);
 
     useEffect(() => {
         if (!user && init) {
@@ -54,9 +54,9 @@ export const useAuth = (): {
                     })
                     .catch((error: FirebaseError) => {
                         reject(error);
-                    })
+                    });
         });
-    }
+    };
 
     const logOut = async (): Promise<void> => {
         return new Promise((resolve, reject) => {
@@ -66,9 +66,9 @@ export const useAuth = (): {
                     resolve();
                 }).catch((error: FirebaseError) => {
                     reject(error);
-                })
+                });
         });
-    }
+    };
 
     const deleteAccount = async (): Promise<void> => {
         return new Promise((resolve, reject) => {
@@ -78,14 +78,14 @@ export const useAuth = (): {
                     resolve();
                 }).catch((error: FirebaseError) => {
                     reject(error);
-                })
+                });
         });
-    }
+    };
 
     return {
         logIn,
         logOut,
         deleteAccount,
         user,
-    }
-}
+    };
+};
