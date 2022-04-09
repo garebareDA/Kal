@@ -1,58 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
 
 import { useAuth } from '../hooks/auth';
 import { Card } from '../components/Card';
 import { useMicrocms } from '../hooks/microcms';
 
-
 import { ArticleList } from '../components/ArticleList';
 import { Logo } from '../components/Logo';
-
-const Homes = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content:center;
-    align-items: center;
-`;
-
-const Buttons = styled.div`
-    display: flex;
-    margin-bottom: 48px;
-`;
-
-const Page = styled.p`
-    margin-left: 24px;
-    margin-right: 24px;
-    color:${(props) => props.theme.mainText};
-`;
-
-const Button = styled.button`
-    border: none;
-    border-radius: 10px;
-    padding: 16px;
-    cursor: pointer;
-    color: ${(props) => props.theme.subText};
-    :enabled{
-        :hover{
-            background-color: #e4e4e4;
-        }
-    }
-`;
-
-const ButtonText = styled.div`
-    font-size: 24px;
-`;
-
-const Logos = styled.div`
-    margin-bottom: 48px;
-`;
 
 type Props = {
     apiKey: string|null
 }
 
-export const Home: React.VFC<Props> = ({ apiKey } : Props) => {
+export const Index: React.VFC<Props> = ({ apiKey } : Props) => {
     const [page, setPage] = useState<number>(1);
     const [isNextPage, setIsNextPage] = useState<boolean>(false);
     const [isPrevPage, setIsPrevPage] = useState<boolean>(false);
@@ -78,29 +37,29 @@ export const Home: React.VFC<Props> = ({ apiKey } : Props) => {
     }, [response]);
 
     return (
-        <Homes>
+        <div>
             <Logo/>
-            <Logos/>
-            {articles.length == 0 && apiKey != "" && <Page>読み込み中...</Page>}
-            {articles.length == 0 && apiKey == "" && <Page>フォローされていません！寝て待て！</Page>}
+            <div/>
+            {articles.length == 0 && apiKey != "" && <div>読み込み中...</div>}
+            {articles.length == 0 && apiKey == "" && <div>フォローされていません！寝て待て！</div>}
             {articles}
             {user &&
             apiKey != "" &&
-                <Buttons>
-                    <Button disabled={!isPrevPage} onClick={() => { setPage(page - 1); }}>
-                        <ButtonText>
+                <div>
+                    <button disabled={!isPrevPage} onClick={() => { setPage(page - 1); }}>
+                        <div>
                             {'<'}
-                        </ButtonText>
-                    </Button>
-                    <Page>{page}</Page>
-                    <Button disabled={!isNextPage} onClick={() => { setPage(page + 1); }}>
-                        <ButtonText>
+                        </div>
+                    </button>
+                    <div>{page}</div>
+                    <button disabled={!isNextPage} onClick={() => { setPage(page + 1); }}>
+                        <div>
                             {'>'}
-                        </ButtonText>
-                    </Button>
-                </Buttons>
+                        </div>
+                    </button>
+                </div>
             }
             {user && <Card logOut={logOut} deleteAccount={deleteAccount} user={user} />}
-        </Homes>
+        </div>
     );
 };

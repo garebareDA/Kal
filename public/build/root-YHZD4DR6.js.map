@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["browser-route-module:/home/garebare/developer/flont/Kal/app/root.tsx?browser", "../../app/root.tsx"],
+  "sourcesContent": ["export { default, meta } from \"/home/garebare/developer/flont/Kal/app/root.tsx\";", "import React from \"react\";\nimport type { MetaFunction } from \"@remix-run/node\";\nimport {\n  Links,\n  LiveReload,\n  Meta,\n  Outlet,\n  Scripts,\n  ScrollRestoration,\n} from \"@remix-run/react\";\n\nexport const meta: MetaFunction = () => ({\n  charset: \"utf-8\",\n  title: \"New Remix App\",\n  viewport: \"width=device-width,initial-scale=1\",\n});\n\nexport default function App():React.ReactElement {\n  return (\n    <html lang=\"en\">\n      <head>\n        <Meta />\n        <Links />\n      </head>\n      <body>\n        <Outlet />\n        <ScrollRestoration />\n        <Scripts />\n        <LiveReload />\n      </body>\n    </html>\n  );\n};\n"],
+  "mappings": ";;;;;;;;;;;;;;;AAAA;;;ACAA;AAAA,mBAAkB;AAWX,IAAM,OAAqB,MAAO;AAAA,EACvC,SAAS;AAAA,EACT,OAAO;AAAA,EACP,UAAU;AAAA;AAGG,eAAkC;AAC/C,SACE,mDAAC,QAAD;AAAA,IAAM,MAAK;AAAA,KACT,mDAAC,QAAD,MACE,mDAAC,MAAD,OACA,mDAAC,OAAD,QAEF,mDAAC,QAAD,MACE,mDAAC,QAAD,OACA,mDAAC,mBAAD,OACA,mDAAC,SAAD,OACA,mDAAC,YAAD;AAAA;",
+  "names": []
+}

@@ -1,25 +1,12 @@
 import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
+import { useNavigate } from '@remix-run/react';
 
 import { useAuth } from '../hooks/auth';
 import { Intro } from '../components/Intro';
 import { Logo } from '../components/Logo';
 import { LoginButton } from '../components/LoginButton';
 
-const Logins = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 64px;
-`;
-
-const Content = styled.div`
-    margin-top:24px;
-    word-wrap: wrap none;
-`;
-
-export const Login: React.VFC = () => {
+export const Index: React.VFC = () => {
     const { logIn, user } = useAuth();
     const navigate = useNavigate();
     useEffect(() => {
@@ -28,16 +15,16 @@ export const Login: React.VFC = () => {
         }
     } , [user]);
     return (
-        <Logins>
-            <Content>
+        <div>
+            <div>
                 <Logo/>
-            </Content>
-            <Content>
+            </div>
+            <div>
                 <Intro />
-            </Content>
-            <Content>
+            </div>
+            <div>
                 <LoginButton logIn={logIn}/>
-            </Content>
-        </Logins>
+            </div>
+        </div>
     );
 };
