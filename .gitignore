@@ -8,3 +8,4 @@ dist-ssr
 .firebaserc
 /*.log
 firebase.json
+.cache

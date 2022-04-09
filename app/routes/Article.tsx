@@ -47,6 +47,7 @@ export const Article: React.VFC<Props> = ({apiKey}:Props) => {
 
     return (
         <Articles>
+            
             <Logo/>
             {!article && apiKey && <Page>何もないかもしれない</Page>}
             {article &&
