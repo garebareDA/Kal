@@ -6,7 +6,7 @@ import { Intro } from '../components/Intro';
 import { Logo } from '../components/Logo';
 import { LoginButton } from '../components/LoginButton';
 
-export const Index: React.VFC = () => {
+export default function Index(): React.ReactElement {
     const { logIn, user } = useAuth();
     const navigate = useNavigate();
     useEffect(() => {

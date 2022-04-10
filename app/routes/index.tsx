@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from 'react';
 
-import { useAuth } from '../hooks/auth';
-import { Card } from '../components/Card';
-import { useMicrocms } from '../hooks/microcms';
+import { useAuth } from '~/hooks/auth';
+import { useApiKey } from '~/hooks/api';
+import { Card } from '~/components/Card';
+import { useMicrocms } from '~/hooks/microcms';
 
-import { ArticleList } from '../components/ArticleList';
-import { Logo } from '../components/Logo';
+import { ArticleList } from '~/components/ArticleList';
+import { Logo } from '~/components/Logo';
 
-type Props = {
-    apiKey: string|null
-}
-
-export const Index: React.VFC<Props> = ({ apiKey } : Props) => {
+export default function Index () {
+    const { apiKey }= useApiKey();
     const [page, setPage] = useState<number>(1);
     const [isNextPage, setIsNextPage] = useState<boolean>(false);
     const [isPrevPage, setIsPrevPage] = useState<boolean>(false);

@@ -9,3 +9,5 @@ dist-ssr
 /*.log
 firebase.json
 .cache
+public/build
+.netlify

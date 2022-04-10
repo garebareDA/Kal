@@ -2,24 +2,21 @@ import React, { useEffect } from 'react';
 import type { LoaderFunction } from '@remix-run/node';
 import { useLoaderData } from '@remix-run/react';
 
-import { useAuth } from '../../hooks/auth';
-import { useMicrocms } from '../../hooks/microcms';
+import { useAuth } from '~/hooks/auth';
+import { useApiKey } from '~/hooks/api';
+import { useMicrocms } from '~/hooks/microcms';
 
-import { ArticleList } from '../../components/ArticleList';
-import { Logo } from '../../components/Logo';
+import { ArticleList } from '~/components/ArticleList';
+import { Logo } from '~/components/Logo';
 import { Container } from '@nextui-org/react';
 
-export const loader: LoaderFunction = async({
-    params,
-}) => {
-    return params.id
+export const loader: LoaderFunction = async ({ params }) => {
+  console.log(params.id);
+  return params.id;
 }
 
-type Props = {
-    apiKey: string|null
-};
-
-export const Index: React.VFC<Props> = ({apiKey}:Props) => {
+export default function Index():React.ReactElement {
+    const { apiKey }= useApiKey();
     const { user } = useAuth();
     const {getArticle, article} = useMicrocms();
     const id = useLoaderData();
