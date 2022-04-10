@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import type { LoaderFunction } from '@remix-run/node';
 import { useLoaderData } from '@remix-run/react';
+import { useNavigate } from '@remix-run/react';
 
 import { useAuth } from '~/hooks/auth';
 import { useApiKey } from '~/hooks/api';
@@ -11,7 +12,6 @@ import { Logo } from '~/components/Logo';
 import { Container } from '@nextui-org/react';
 
 export const loader: LoaderFunction = async ({ params }) => {
-  console.log(params.id);
   return params.id;
 }
 
@@ -19,11 +19,14 @@ export default function Index():React.ReactElement {
     const { apiKey }= useApiKey();
     const { user } = useAuth();
     const {getArticle, article} = useMicrocms();
+    const navigate = useNavigate();
     const id = useLoaderData();
 
     useEffect(() => {
-        if(!user) return;
-        if(!apiKey || apiKey == "") return;
+        if((!apiKey || apiKey == "") || !user) {
+            navigate('/login');
+        }
+
         getArticle(apiKey, id);
     } , [apiKey, user]);
 

@@ -11,8 +11,8 @@ export const useApiKey = (): {
     const { user } = useAuth();
     const [apiKey, setApiKey] = useState<string>("");
 
-    const getApiKey = async (): Promise<string | null> => {
-        if (!firestore) return null;
+    const getApiKey = async (): Promise<string> => {
+        if (!firestore) return "";
         try {
             const docs = await getDoc(doc(firestore, 'microcsm', 'api'));
             return docs.data()?.key || "";
@@ -25,9 +25,9 @@ export const useApiKey = (): {
     useEffect(() => {
         if (!firestore) return;
         if (!user) return;
-        if (apiKey != "" && apiKey != null) return;
+        if (apiKey != "" && apiKey) return;
         getApiKey().then((key) => {
-            setApiKey(key ? key : "");
+            setApiKey(key);
         });
     } , [user]);
 

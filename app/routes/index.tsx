@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from '@remix-run/react';
 
 import { useAuth } from '~/hooks/auth';
 import { useApiKey } from '~/hooks/api';
@@ -9,6 +10,7 @@ import { ArticleList } from '~/components/ArticleList';
 import { Logo } from '~/components/Logo';
 
 export default function Index () {
+    const navigate = useNavigate();
     const { apiKey }= useApiKey();
     const [page, setPage] = useState<number>(1);
     const [isNextPage, setIsNextPage] = useState<boolean>(false);
@@ -18,8 +20,10 @@ export default function Index () {
     const [articles, setArticles] = useState<React.ReactNode[]>([]);
 
     useEffect(() => {
-        if (!user) return;
-        if (!apiKey || apiKey == "") return;
+        if ((!apiKey || apiKey == "") || !user) {
+            navigate('/login');
+        }
+
         getArticles(apiKey, page);
     }, [apiKey, user, page]);
 
