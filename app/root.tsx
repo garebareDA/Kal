@@ -9,6 +9,9 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 
+import { NextUIProvider } from "@nextui-org/react";
+import { FirebaseProvider } from "./hooks/firebase";
+
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
   title: "New Remix App",
@@ -23,10 +26,14 @@ export default function App():React.ReactElement {
         <Links />
       </head>
       <body>
-        <Outlet />
-        <ScrollRestoration />
-        <Scripts />
-        <LiveReload />
+        <NextUIProvider>
+          <FirebaseProvider>
+            <Outlet />
+            <ScrollRestoration />
+            <Scripts />
+            <LiveReload />
+          </FirebaseProvider>
+        </NextUIProvider>
       </body>
     </html>
   );

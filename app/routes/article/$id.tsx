@@ -36,7 +36,7 @@ export default function Index():React.ReactElement {
             {!article && apiKey && <div>何もないかもしれない</div>}
             {article &&
                 <div>
-                   <ArticleList title={article.title} subtitle={article.profile} id={article.id} key={article.id} createdAt={article.date} isLink={false}></ArticleList>
+                   <ArticleList title={article.title} subtitle={article.profile} id={article.id} key={article.id} createdAt={article.date}></ArticleList>
                     <div dangerouslySetInnerHTML={{__html:article.content}}></div>
                 </div>
             }

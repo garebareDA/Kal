@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from '@remix-run/react';
+
 
 import { useAuth } from '~/hooks/auth';
 import { useApiKey } from '~/hooks/api';
-import { Card } from '~/components/Card';
+import { UserCard } from '~/components/UserCard';
 import { useMicrocms } from '~/hooks/microcms';
 
 import { ArticleList } from '~/components/ArticleList';
 import { Logo } from '~/components/Logo';
+import { Card, Loading, Row, Text, Spacer, Container, Button, Table } from '@nextui-org/react';
 
-export default function Index () {
-    const navigate = useNavigate();
-    const { apiKey }= useApiKey();
+export default function Index() {
+    const { apiKey } = useApiKey();
     const [page, setPage] = useState<number>(1);
     const [isNextPage, setIsNextPage] = useState<boolean>(false);
     const [isPrevPage, setIsPrevPage] = useState<boolean>(false);
@@ -20,10 +20,6 @@ export default function Index () {
     const [articles, setArticles] = useState<React.ReactNode[]>([]);
 
     useEffect(() => {
-        if ((!apiKey || apiKey == "") || !user) {
-            navigate('/login');
-        }
-
         getArticles(apiKey, page);
     }, [apiKey, user, page]);
 
@@ -32,36 +28,52 @@ export default function Index () {
         setArticles([]);
         for (let i = 0; i < response.contents.length; i++) {
             const c = response.contents[i];
-            setArticles(articles => [...articles, <ArticleList title={c.title} subtitle={c.profile} id={c.id} key={c.id} createdAt={c.date} isLink={true}/> ]);
+            setArticles(articles => [...articles, <ArticleList title={c.title} subtitle={c.profile} id={c.id} key={c.id} createdAt={c.date}/>]);
         }
         setIsNextPage((response.totalCount % 10) == 0 && response.contents.length == 10);
         setIsPrevPage(page != 1);
     }, [response]);
 
     return (
-        <div>
-            <Logo/>
-            <div/>
-            {articles.length == 0 && apiKey != "" && <div>読み込み中...</div>}
-            {articles.length == 0 && apiKey == "" && <div>フォローされていません！寝て待て！</div>}
-            {articles}
-            {user &&
-            apiKey != "" &&
-                <div>
-                    <button disabled={!isPrevPage} onClick={() => { setPage(page - 1); }}>
-                        <div>
-                            {'<'}
-                        </div>
-                    </button>
-                    <div>{page}</div>
-                    <button disabled={!isNextPage} onClick={() => { setPage(page + 1); }}>
-                        <div>
-                            {'>'}
-                        </div>
-                    </button>
-                </div>
-            }
-            {user && <Card logOut={logOut} deleteAccount={deleteAccount} user={user} />}
-        </div>
+        <Container gap={2}>
+            <Spacer />
+            <Logo />
+            <Spacer />
+            <Row justify='center'>
+                {articles.length == 0 && apiKey != "" && <Loading></Loading>}
+                {articles.length == 0 && apiKey == "" && <Card css={{ mw: "600px", }}>
+                    <Row justify='center'>
+                        <Text>
+                            フォローされていません！寝て待て！
+                        </Text>
+                    </Row>
+                </Card>}
+                {articles.map((article) => {
+                    return <Card>
+                        {article}
+                    </Card>
+                })}
+                {user &&
+                    apiKey != "" &&
+                    <Container>
+                        <Button disabled={!isPrevPage} onClick={() => { setPage(page - 1); }}>
+                            <Text>
+                                {'<'}
+                            </Text>
+                        </Button>
+                        <Text>{page}</Text>
+                        <Button disabled={!isNextPage} onClick={() => { setPage(page + 1); }}>
+                            <Text>
+                                {'>'}
+                            </Text>
+                        </Button>
+                    </Container>
+                }
+            </Row>
+            <Spacer y={3} />
+            <Row justify='center'>
+                {user && <UserCard logOut={logOut} deleteAccount={deleteAccount} user={user} />}
+            </Row>
+        </Container>
     );
 };
