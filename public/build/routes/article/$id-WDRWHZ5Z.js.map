@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["browser-route-module:/home/garebare/developer/flont/Kal/app/routes/article/$id.tsx?browser"],
+  "sourcesContent": ["module.exports = {};"],
+  "mappings": ";;;;;;AAAA;AAAA;AAAA;AAAA,WAAO,UAAU;AAAA;AAAA;",
+  "names": []
+}
