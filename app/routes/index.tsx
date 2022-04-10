@@ -8,7 +8,7 @@ import { useMicrocms } from '~/hooks/microcms';
 
 import { ArticleList } from '~/components/ArticleList';
 import { Logo } from '~/components/Logo';
-import { Card, Loading, Row, Text, Spacer, Container, Button, Table } from '@nextui-org/react';
+import { Card, Loading, Row, Text, Spacer, Container, Button, Grid } from '@nextui-org/react';
 
 export default function Index() {
     const { apiKey } = useApiKey();
@@ -20,7 +20,7 @@ export default function Index() {
     const [articles, setArticles] = useState<React.ReactNode[]>([]);
 
     useEffect(() => {
-        getArticles(apiKey, page);
+        getArticles(apiKey || "", page);
     }, [apiKey, user, page]);
 
     useEffect(() => {
@@ -28,20 +28,20 @@ export default function Index() {
         setArticles([]);
         for (let i = 0; i < response.contents.length; i++) {
             const c = response.contents[i];
-            setArticles(articles => [...articles, <ArticleList title={c.title} subtitle={c.profile} id={c.id} key={c.id} createdAt={c.date}/>]);
+            setArticles(articles => [...articles, <ArticleList title={c.title} subtitle={c.profile} id={c.id} key={c.id} createdAt={c.date} />]);
         }
         setIsNextPage((response.totalCount % 10) == 0 && response.contents.length == 10);
         setIsPrevPage(page != 1);
     }, [response]);
 
     return (
-        <Container gap={2}>
+        <Container gap={2} justify="center">
             <Spacer />
             <Logo />
             <Spacer />
-            <Row justify='center'>
-                {articles.length == 0 && apiKey != "" && <Loading></Loading>}
-                {articles.length == 0 && apiKey == "" && <Card css={{ mw: "600px", }}>
+            <Grid.Container gap={1} justify='center'>
+                {apiKey === undefined && <Loading></Loading>}
+                {apiKey === null && <Card css={{ mw: "600px", }}>
                     <Row justify='center'>
                         <Text>
                             フォローされていません！寝て待て！
@@ -49,31 +49,41 @@ export default function Index() {
                     </Row>
                 </Card>}
                 {articles.map((article) => {
-                    return <Card>
-                        {article}
-                    </Card>
+                    return <Grid>
+                        <Card
+                        hoverable
+                         css={{
+                            mw: "400px",
+                        }}>
+                            {article}
+                        </Card>
+                    </Grid>
                 })}
-                {user &&
-                    apiKey != "" &&
-                    <Container>
-                        <Button disabled={!isPrevPage} onClick={() => { setPage(page - 1); }}>
-                            <Text>
-                                {'<'}
-                            </Text>
-                        </Button>
-                        <Text>{page}</Text>
-                        <Button disabled={!isNextPage} onClick={() => { setPage(page + 1); }}>
-                            <Text>
-                                {'>'}
-                            </Text>
-                        </Button>
-                    </Container>
-                }
-            </Row>
-            <Spacer y={3} />
+            </Grid.Container>
+            <Spacer />
+            {user &&
+                apiKey != "" &&
+                <Row justify="center" align='center'>
+                    <Button disabled={!isPrevPage} onClick={() => { setPage(page - 1); }}>
+                        <Text>
+                            {'<'}
+                        </Text>
+                    </Button>
+                    <Spacer />
+                    <Text>{page}</Text>
+                    <Spacer />
+                    <Button disabled={!isNextPage} onClick={() => { setPage(page + 1); }}>
+                        <Text>
+                            {'>'}
+                        </Text>
+                    </Button>
+                </Row>
+            }
+            <Spacer y={5} />
             <Row justify='center'>
                 {user && <UserCard logOut={logOut} deleteAccount={deleteAccount} user={user} />}
             </Row>
+            <Spacer />
         </Container>
     );
 };

@@ -21,13 +21,13 @@ export type Article = {
 const ENDPOINT = 'https://kal.microcms.io/api/v1/blog';
 
 export const useMicrocms = (): {
-    response: MicrocmsResponse | undefined,
+    response: MicrocmsResponse | undefined | null,
     article: Article | undefined | null,
     getArticle: (key?: string, id?: string) => void,
     getArticles: (key?: string, page?: number) => void,
 } => {
-    const [response, setContents] = useState<MicrocmsResponse>();
-    const [article, setArticle] = useState<Article | null>();
+    const [response, setContents] = useState<MicrocmsResponse | null | undefined>(undefined);
+    const [article, setArticle] = useState<Article | null | undefined >(undefined);
 
     const Limit = 100;
     const getArticles = async (key?: string, page?: number) => {
@@ -43,7 +43,7 @@ export const useMicrocms = (): {
                 'X-MICROCMS-API-KEY': key,
             },
         });
-        setContents((await res.json() as MicrocmsResponse));
+        res.status === 400 ? setContents(null) : setContents(await res.json() as MicrocmsResponse);
     };
 
     const getArticle = async (key?: string, id?: string) => {
@@ -55,7 +55,7 @@ export const useMicrocms = (): {
                 'X-MICROCMS-API-KEY': key,
             },
         });
-        setArticle((await res.json()) as Article);
+        res.status == 404 ? setArticle(null) : setArticle((await res.json() as Article));
     };
 
     return {

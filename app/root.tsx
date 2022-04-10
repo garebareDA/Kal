@@ -14,13 +14,13 @@ import { FirebaseProvider } from "./hooks/firebase";
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
-  title: "New Remix App",
+  title: "Kal Garebare's blog",
   viewport: "width=device-width,initial-scale=1",
 });
 
 export default function App():React.ReactElement {
   return (
-    <html lang="en">
+    <html lang="ja">
       <head>
         <Meta />
         <Links />

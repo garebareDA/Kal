@@ -12,14 +12,14 @@ type Props = {
 export const ArticleList: React.VFC<Props> = ({ title, subtitle, id, createdAt }: Props) => {
     const navigate = useNavigate();
     return (
-        <Card>
+        <div>
             <Text>{createdAt.split('T')[0]}</Text>
-            <Link icon onClick={() => { navigate(`/article/${id}`); }}>
+            <Link onClick={() => { navigate(`/article/${id}`); }}>
                 <Text h2>
                     {title}
                 </Text>
             </Link>
             <Text size={16}>{subtitle}</Text>
-        </Card>
+        </div>
     );
 };

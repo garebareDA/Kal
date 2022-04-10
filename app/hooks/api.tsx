@@ -4,21 +4,21 @@ import { useAuth } from './auth';
 import { useFirebase } from './firebase';
 
 export const useApiKey = (): {
-    apiKey: string
+    apiKey: string | null | undefined,
 } => {
     const firebase = useFirebase();
     const firestore = firebase?.firestore;
     const { user } = useAuth();
-    const [apiKey, setApiKey] = useState<string>("");
+    const [apiKey, setApiKey] = useState<string | null |undefined>(undefined);
 
-    const getApiKey = async (): Promise<string> => {
-        if (!firestore) return "";
+    const getApiKey = async (): Promise<string | null> => {
+        if (!firestore) return null;
         try {
             const docs = await getDoc(doc(firestore, 'microcsm', 'api'));
-            return docs.data()?.key || "";
+            return docs.data()?.key || null;
         }
         catch(error) {
-            return "";
+            return null;
         }
     };
 

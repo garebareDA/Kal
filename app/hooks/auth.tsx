@@ -42,7 +42,6 @@ export const useAuth = (): {
             navigate('/login');
         }
     }, [init, user]);
-
     const logIn = async (): Promise<void> => {
         return new Promise((resolve, reject) => {
             auth &&
