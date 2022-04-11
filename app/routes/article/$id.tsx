@@ -40,7 +40,7 @@ export default function Index():React.ReactElement {
                 </Card>}
             {article &&
                 <Card css={{
-                    mw: "800px",
+                    mw: "900px",
                 }}>
                    <ArticleList title={article.title} subtitle={article.profile} id={article.id} key={article.id} createdAt={article.date}></ArticleList>
                     <Spacer/>
