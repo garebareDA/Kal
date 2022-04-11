@@ -7,9 +7,10 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useCatch,
 } from "@remix-run/react";
 
-import { NextUIProvider } from "@nextui-org/react";
+import { Container, Row, Spacer, Text, Button, Card, NextUIProvider } from "@nextui-org/react";
 import { FirebaseProvider } from "./hooks/firebase";
 
 export const meta: MetaFunction = () => ({
@@ -26,7 +27,7 @@ export const meta: MetaFunction = () => ({
   "twitter:creator": "@garebare521",
 });
 
-export default function App():React.ReactElement {
+export default function App(): React.ReactElement {
   return (
     <html lang="ja">
       <head>
@@ -46,3 +47,40 @@ export default function App():React.ReactElement {
     </html>
   );
 };
+
+export function CatchBoundary(): React.ReactElement {
+  const caught = useCatch();
+  return (
+    <html lang="ja">
+      <head>
+        <Meta />
+        <Links />
+      </head>
+      <body>
+        <NextUIProvider>
+          <Container>
+            <Spacer y={3} />
+            <Row justify="center">
+              <Card css={{
+                mw: "500px",
+              }}>
+                <Row justify="center">
+                  <Text size={40}>{caught.status}</Text>
+                </Row>
+                <Row justify="center">
+                  <Text size={32}>{caught.statusText}</Text>
+                </Row>
+                <Spacer y={3} />
+                <Row justify="center">
+                  <Button onClick={() => {
+                    location.href = "/";
+                  }}>メインページに戻る</Button>
+                </Row>
+              </Card>
+            </Row>
+          </Container>
+        </NextUIProvider>
+      </body>
+    </html>
+  );
+}
