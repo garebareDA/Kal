@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 
-
 import { useAuth } from '~/hooks/auth';
 import { useApiKey } from '~/hooks/api';
 import { UserCard } from '~/components/UserCard';
@@ -9,6 +8,7 @@ import { useMicrocms } from '~/hooks/microcms';
 import { ArticleList } from '~/components/ArticleList';
 import { Logo } from '~/components/Logo';
 import { Card, Loading, Row, Text, Spacer, Container, Button, Grid } from '@nextui-org/react';
+import { useNavigate } from '@remix-run/react';
 
 export default function Index() {
     const { apiKey } = useApiKey();
@@ -18,6 +18,7 @@ export default function Index() {
     const { logOut, deleteAccount, user } = useAuth();
     const { response, getArticles } = useMicrocms();
     const [articles, setArticles] = useState<React.ReactNode[]>([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         getArticles(apiKey || "", page);
@@ -28,7 +29,19 @@ export default function Index() {
         setArticles([]);
         for (let i = 0; i < response.contents.length; i++) {
             const c = response.contents[i];
-            setArticles(articles => [...articles, <ArticleList title={c.title} subtitle={c.profile} id={c.id} key={c.id} createdAt={c.date} />]);
+            setArticles(articles => [...articles,
+                <Grid>
+                    <Card
+                    hoverable
+                    clickable
+                    onClick={() => navigate(`/article/${c.id}`)}
+                    css={{
+                        mw: "400px",
+                    }}>
+                        <ArticleList title={c.title} subtitle={c.profile} key={c.id} createdAt={c.date}></ArticleList>
+                    </Card>
+                </Grid>
+            ]);
         }
         setIsNextPage((response.totalCount % 10) == 0 && response.contents.length == 10);
         setIsPrevPage(page != 1);
@@ -48,17 +61,7 @@ export default function Index() {
                         </Text>
                     </Row>
                 </Card>}
-                {articles.map((article) => {
-                    return <Grid>
-                        <Card
-                        hoverable
-                         css={{
-                            mw: "400px",
-                        }}>
-                            {article}
-                        </Card>
-                    </Grid>
-                })}
+                {articles}
             </Grid.Container>
             <Spacer />
             {user &&

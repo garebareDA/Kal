@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import type { LoaderFunction } from '@remix-run/node';
 import { useLoaderData } from '@remix-run/react';
 
@@ -42,7 +42,7 @@ export default function Index():React.ReactElement {
                 <Card css={{
                     mw: "900px",
                 }}>
-                   <ArticleList title={article.title} subtitle={article.profile} id={article.id} key={article.id} createdAt={article.date}></ArticleList>
+                   <ArticleList title={article.title} subtitle={article.profile} key={article.id} createdAt={article.date}></ArticleList>
                     <Spacer/>
                     <div dangerouslySetInnerHTML={{__html:article.content}}></div>
                 </Card>
